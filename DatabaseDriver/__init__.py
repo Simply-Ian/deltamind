@@ -20,7 +20,7 @@ async def __create_fork_row(master_map_id, fork_id):
 __create_map_handler = CreateMapHandler(db_manager, Maps, Interactives)
 __download_map_handler = DownloadMapHandler(db_manager, Maps)
 __search_map_handler = SearchTableHandler(db_manager, Maps, Forks)
-__show_interactives_handler = ShowInteractivesHandler(db_manager, Maps, Interactives)
+__show_interactives_handler = ShowInteractivesHandler(db_manager, Maps, Interactives, Forks)
 create_map = __create_map_handler.handle
 download_map = __download_map_handler.handle
 search_map = __search_map_handler.handle

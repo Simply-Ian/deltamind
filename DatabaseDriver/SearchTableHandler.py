@@ -22,11 +22,17 @@ class SearchTableHandler:
 			requested_maps_by_nickname = list(requested_maps_by_nickname_query)
 
 			requested_maps.extend(requested_maps_by_nickname)
+			# Поиск форков не работал. Исправил и отладил
+			additional_forks = []
 			for req_map in requested_maps:
 				forks_query = await self.__get_forks_if_exist(req_map.id)
-				forks = list(forks_query)
-				if forks:
-					req_map = [req_map, forks]
+				forks_raw = list(forks_query)
+				if forks_raw:
+					for fork in forks_raw:
+						map_object = fork.fork
+						map_object.title += f' fork of map #{fork.master_id} "{fork.master.title}"'
+						additional_forks.append(map_object)
+			requested_maps.extend(additional_forks)
 			if requested_maps:
 				return requested_maps
 			else:
