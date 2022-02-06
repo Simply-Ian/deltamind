@@ -32,7 +32,10 @@ class SearchTableHandler:
 						map_object = fork.fork
 						map_object.title += f' fork of map #{fork.master_id} "{fork.master.title}"'
 						additional_forks.append(map_object)
-						requested_maps.remove([i for i in requested_maps if i.id == map_object.id][0])
+						try:
+							requested_maps.remove([i for i in requested_maps if i.id == map_object.id][0])
+						except IndexError:
+							pass
 			requested_maps.extend(additional_forks)
 			if requested_maps:
 				return requested_maps
